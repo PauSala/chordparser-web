@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #c6d0f5;
-  --foreground: #232634;
+  --background: #232634;
+  --foreground: #c6d0f5;
+  --warning: #e78284;
+  --success: #81c8be;
+  --primary: #8caaee;
+  --secondary: #babbf1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,6 +22,9 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+path{
+  stroke:#8caaee;
 }
 
 .json-string {
