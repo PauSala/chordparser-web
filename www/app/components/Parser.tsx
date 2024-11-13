@@ -97,7 +97,7 @@ export default function Parser() {
   };
 
   return (
-    <div className="flex flex-col justify-center p-10 gap-5 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto">
+    <div className="flex flex-col justify-center p-4 gap-5 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto">
       <div className="flex gap-1 justify-center">
         <input
           className="text-gray-900 bg-slate-100 p-2 w-full text-center rounded border-none focus:outline-none"

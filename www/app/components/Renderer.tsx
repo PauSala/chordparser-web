@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useEffect } from "react";
 import Vex, { Accidental, Barline, BarlineType } from "vexflow";
 import { normalizeNotes } from "../utils/notes";
@@ -80,9 +81,7 @@ const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
         isVoid ? "border-warning" : "border-success"
       } bg-ibackground border border-success rounded min-w-fit sm:min-w-64  p-2 flex flex-col sm:flex-row flex  md:gap-2 lg:gap-5 justify-center items-center`}
     >
-      {(!isVoid && (
-        <p className="text-2xl font-bold text-success">{label}</p>
-      )) || (
+      {(!isVoid && <p className="text-2xl text-success">{label}</p>) || (
         <div className="flex items-center gap-2 m-2">
           <PiMaskSadLight className="w-5 h-5" />
           <p>This is not a valid chord</p>
