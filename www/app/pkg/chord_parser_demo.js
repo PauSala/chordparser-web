@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-array-constructor */
-
 let wasm;
 
 const heap = new Array(128).fill(undefined);
