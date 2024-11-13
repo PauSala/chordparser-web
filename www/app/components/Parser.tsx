@@ -1,6 +1,10 @@
 "use client";
 
-import { InitInput, InitOutput, parse as ParseType } from "chord_parser_demo";
+import {
+  InitInput,
+  InitOutput,
+  parse as ParseType,
+} from "../pkg/chord_parser_demo";
 import { useCallback, useEffect, useState } from "react";
 import { prettyPrintJson } from "pretty-print-json";
 import Renderer from "./Renderer";

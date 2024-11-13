@@ -1,0 +1,18 @@
+{
+  "name": "chord_parser_demo",
+  "type": "module",
+  "collaborators": [
+    "pausala <pau.salaf@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "chord_parser_demo_bg.wasm",
+    "chord_parser_demo.js",
+    "chord_parser_demo.d.ts"
+  ],
+  "main": "chord_parser_demo.js",
+  "types": "chord_parser_demo.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
