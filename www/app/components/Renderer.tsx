@@ -78,7 +78,7 @@ const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
     <div
       className={` ${
         isVoid ? "border-warning" : "border-success"
-      } bg-[#292c3c] border border-success rounded min-w-fit sm:min-w-64  p-2 flex flex-col sm:flex-row flex  md:gap-2 lg:gap-5 justify-center items-center`}
+      } bg-ibackground border border-success rounded min-w-fit sm:min-w-64  p-2 flex flex-col sm:flex-row flex  md:gap-2 lg:gap-5 justify-center items-center`}
     >
       {(!isVoid && (
         <p className="text-2xl font-bold text-success">{label}</p>

@@ -15,9 +15,12 @@ export default {
         success: "var(--success)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
+        header: "var(--header)",
+        ibackground: "var(--inner-background)",
       },
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
+        righteous: ['var(--font-righteous)'],
+        geist: ['var(--font-geist-mono)'],
       },
     },
   },

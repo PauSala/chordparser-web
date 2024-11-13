@@ -3,20 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: #232634;
+  --header: #292c3c;
+  --background: #303446;
+  --inner-background: #292c3c;
   --foreground: #c6d0f5;
   --warning: #e78284;
   --success: #81c8be;
   --primary: #8caaee;
-  --secondary: #babbf1;
+  --secondary: #c6d0f5;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #232634;
     --foreground: #c6d0f5;
   }
-}
+} */
 
 body {
   color: var(--foreground);
@@ -37,5 +39,5 @@ path{
   color: #8caaee;
 }
 .json-container {
-  background-color: #292c3c;
+  background-color: var(--inner-background);
 }

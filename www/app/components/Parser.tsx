@@ -100,7 +100,7 @@ export default function Parser() {
     <div className="flex flex-col justify-center p-10 gap-5 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto">
       <div className="flex gap-1 justify-center">
         <input
-          className="text-gray-900 p-2 w-full text-center border-none focus:outline-none"
+          className="text-gray-900 bg-slate-100 p-2 w-full text-center rounded border-none focus:outline-none"
           type="text"
           value={inputValue}
           onChange={handleInputChange}
@@ -126,7 +126,8 @@ export default function Parser() {
             </button>
             {isJsonVisible && (
               <pre
-                className="json-container p-4 text-xs border border-primary rounded mt-2"
+                className="json-container p-4 text-xs border border-primary rounded mt-2 overflow-y-auto"
+                // style={{ maxHeight: "calc(100vh - 400px)" }}
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
               ></pre>
             )}
