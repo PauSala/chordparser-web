@@ -81,7 +81,11 @@ export default function Parser() {
 
   useEffect(() => {
     async function loadWasm() {
-      const { default: init, parse, main } = await import("chord_parser_demo");
+      const {
+        default: init,
+        parse,
+        main,
+      } = await import("../pkg/chord_parser_demo");
 
       WebAssembly.init = init;
       WebAssembly.main = main;
