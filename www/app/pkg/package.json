@@ -8,11 +8,13 @@
   "files": [
     "chord_parser_demo_bg.wasm",
     "chord_parser_demo.js",
+    "chord_parser_demo_bg.js",
     "chord_parser_demo.d.ts"
   ],
   "main": "chord_parser_demo.js",
   "types": "chord_parser_demo.d.ts",
   "sideEffects": [
+    "./chord_parser_demo.js",
     "./snippets/*"
   ]
 }
