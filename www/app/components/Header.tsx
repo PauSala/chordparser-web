@@ -6,14 +6,14 @@ import { FaRust } from "react-icons/fa";
 
 export function Header() {
   return (
-    <div className="p-3 bg-header flex items-center justify-between sticky top-0 z-50 border-b border-t border-dashed">
-      <div className="font-righteous flex items-center gap-2 ml-4">
+    <div className="p-1 bg-header flex items-center justify-between sticky top-0 z-50 border-b border-t border-dashed">
+      <div className="font-righteous flex items-center gap-2 ml-2">
         <GiSadCrab className="text-warning w-7 h-7" />
         <h1 className="text-lg text-success ">ChordParser</h1>
       </div>
-      <div className="flex">
+      <div className="flex gap-2 lg:gap-3 md:gap-2 sm:gap-1">
         <div
-          className="mr-4  cursor-pointer text-success opacity-80 hover:opacity-100 transition-opacity duration-300"
+          className="cursor-pointer text-success opacity-80 hover:opacity-100 transition-opacity duration-300"
           title="github"
         >
           <a
@@ -27,7 +27,7 @@ export function Header() {
           </a>
         </div>
         <div
-          className="mr-4  cursor-pointer text-warning opacity-80 hover:opacity-100 transition-opacity duration-300"
+          className="cursor-pointer text-warning opacity-80 hover:opacity-100 transition-opacity duration-300"
           title="crates.io"
         >
           <a

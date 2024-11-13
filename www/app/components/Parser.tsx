@@ -134,7 +134,7 @@ export default function Parser() {
             </button>
             {isJsonVisible && (
               <pre
-                className="json-container p-4 text-xs border border-primary rounded mt-2 overflow-y-auto"
+                className="json-container p-4 text-xs border border-primary rounded mt-2 mb-4 overflow-y-auto"
                 // style={{ maxHeight: "calc(100vh - 400px)" }}
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
               ></pre>
