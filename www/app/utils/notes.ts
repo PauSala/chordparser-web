@@ -14,14 +14,15 @@ export const normalizeNotes = (notes: string[]) => {
 const getOctaves = (notes: string[]) => {
     
     const noteOrder = ["C", "D", "E", "F", "G", "A", "B"];
-    let currentOctave = noteOrder.indexOf(notes[0]) >  3 ? 3 : 4;
+    const baseOcave = noteOrder.indexOf(notes[0]) >  3 ? 3 : 4;
     let previousNoteIndex = noteOrder.indexOf(notes[0][0]);
 
+    let currentOctave = baseOcave;
     return notes.map((note, i) => {
         const noteName = note[0];
         const noteIndex = noteOrder.indexOf(noteName);
     
-        if (i > 0 && noteIndex <= previousNoteIndex) {
+        if (i > 0 && noteIndex < previousNoteIndex && currentOctave < baseOcave+1) {
           currentOctave++;
         }
         
