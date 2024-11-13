@@ -22,8 +22,8 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaGithub className="w-7 h-7" />
-            github
+            <FaGithub className="w-5 h-5" />
+            <span className="hidden md:block lg:block"> github</span>
           </a>
         </div>
         <div
@@ -36,8 +36,8 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaRust className="w-7 h-7" />
-            crates.io
+            <FaRust className="w-5 h-5" />
+            <span className="hidden md:block lg:block"> crates.io</span>
           </a>
         </div>
       </div>
