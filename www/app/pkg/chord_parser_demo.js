@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-array-constructor */
 let wasm;
 
 const heap = new Array(128).fill(undefined);
@@ -279,7 +280,6 @@ function __wbg_get_imports() {
         console.log(getObject(arg0));
     };
     imports.wbg.__wbg_new_034f913e7636e987 = function() {
-        // eslint-disable-next-line @typescript-eslint/no-array-constructor
         const ret = new Array();
         return addHeapObject(ret);
     };
