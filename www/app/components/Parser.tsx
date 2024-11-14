@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { prettyPrintJson } from "pretty-print-json";
 import Renderer from "./Renderer";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { formatErrors } from "../utils/formatErrors";
 
 const INITIAL_VALUE = "DbMaj7";
 
@@ -32,12 +33,12 @@ const WebAssembly: {
   parse: null,
 };
 
-interface ParserError {
+export interface ParserError {
   errors: string[];
   positions: number[];
 }
 
-const defaultParserError = {
+const defaultParserError: ParserError = {
   errors: [],
   positions: [],
 };
@@ -51,6 +52,7 @@ export default function Parser() {
   const [parsedHtml, setParsedHtml] = useState<string | null>(null);
   const [parsed, setParsed] = useState<ParsedChord | null>(null);
   const [error, setError] = useState<ParserError>(defaultParserError);
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const [inputValue, setInputValue] = useState(INITIAL_VALUE);
 
   const [isWasmInitialized, setIsWasmInitialized] = useState(false);
@@ -68,6 +70,7 @@ export default function Parser() {
           setParsedHtml("");
           setParsed(null);
           setError(res);
+          setErrorMsg(formatErrors(res, input));
           return;
         }
         setError(defaultParserError);
@@ -105,7 +108,7 @@ export default function Parser() {
   };
 
   return (
-    <div className="flex flex-col justify-center p-4 gap-5 w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto">
+    <div className="flex flex-col justify-center mt-4 p-2 gap-3 w-full ">
       <div className="flex gap-1 justify-center">
         <input
           className="text-gray-900 bg-slate-100 p-2 w-full text-center rounded border-none focus:outline-none"
@@ -143,10 +146,9 @@ export default function Parser() {
         )}
       </div>
       {error.errors.length > 0 && (
-        <div className="json-container p-4 border border-warning rounded">
-          {error.errors.map((e, i) => (
-            <p key={i}>{e}</p>
-          ))}
+        <div className="json-container p-4 mt-[-1em] border border-warning rounded overflow-x-auto">
+          <pre className="spaced-text text-primary">{inputValue}</pre>
+          <pre className="spaced-text mt-[-22px] text-error">{errorMsg}</pre>
         </div>
       )}
     </div>

@@ -8,9 +8,16 @@
   --inner-background: #292c3c;
   --foreground: #c6d0f5;
   --warning: #e78284;
+  --error: #d9d3b5;
   --success: #81c8be;
   --primary: #8caaee;
   --secondary: #c6d0f5;
+}
+
+/* styles.css */
+.spaced-text {
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 /* @media (prefers-color-scheme: dark) {

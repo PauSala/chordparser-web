@@ -17,6 +17,7 @@ export default {
         secondary: "var(--secondary)",
         header: "var(--header)",
         ibackground: "var(--inner-background)",
+        error: "var(--error)",
       },
       fontFamily: {
         righteous: ['var(--font-righteous)'],

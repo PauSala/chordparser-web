@@ -2,7 +2,7 @@ mod utils;
 
 use serde::Serialize;
 use std::sync::RwLock;
-use web_sys::console;
+// use web_sys::console;
 
 use chordparser::parsing::Parser;
 use lazy_static::lazy_static;
@@ -25,13 +25,14 @@ extern "C" {
     fn alert(s: &str);
 }
 
+// This is not working, the parser state is corrupted between calls
 lazy_static! {
     static ref PARSER: RwLock<Parser> = RwLock::new(Parser::new());
 }
 
 #[wasm_bindgen]
 pub fn parse(input: &str) -> JsValue {
-    console::log_1(&JsValue::from_str(input));
+    // console::log_1(&JsValue::from_str(input));
     let mut parser = Parser::new();
 
     match parser.parse(input) {

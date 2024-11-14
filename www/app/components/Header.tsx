@@ -11,7 +11,7 @@ export function Header() {
         <GiSadCrab className="text-warning w-7 h-7" />
         <h1 className="text-lg text-success ">ChordParser</h1>
       </div>
-      <div className="flex gap-2 lg:gap-3 md:gap-2 sm:gap-1">
+      <div className="flex gap-2 lg:gap-3 md:gap-2 sm:gap-1 mr-2">
         <div
           className="cursor-pointer text-success opacity-80 hover:opacity-100 transition-opacity duration-300"
           title="github"

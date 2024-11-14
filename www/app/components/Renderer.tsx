@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import Vex, { Accidental, Barline, BarlineType } from "vexflow";
 import { normalizeNotes } from "../utils/notes";
-import { PiMaskSadLight } from "react-icons/pi";
+import { FaHeartBroken } from "react-icons/fa";
 
 const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
   const isVoid = chord.length === 0;
@@ -35,7 +35,7 @@ const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
           clef: "treble",
           keys: notes,
           duration: "w",
-          //   align_center: true,
+          // align_center: true,
         });
         notes.forEach((n, i) => {
           if (n.indexOf("##") >= 0) {
@@ -83,8 +83,8 @@ const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
     >
       {(!isVoid && <p className="text-2xl text-success">{label}</p>) || (
         <div className="flex items-center gap-2 m-2">
-          <PiMaskSadLight className="w-5 h-5" />
-          <p>This is not a valid chord</p>
+          <FaHeartBroken className="w-5 h-5" />
+          <p>This does not look like a valid chord.</p>
         </div>
       )}
       <div className="" ref={vexContainerRef}></div>

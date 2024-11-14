@@ -14,8 +14,10 @@ export default function Home() {
           ChordParser Playground
         </h1>
       </div>
-      <Introduction></Introduction>
-      <Parser></Parser>
+      <div className="w-full sm:w-11/12 md:w-10/12 lg:w-9/12 xl:6/12 mx-auto">
+        <Introduction></Introduction>
+        <Parser></Parser>
+      </div>
       <Footer></Footer>
     </div>
   );

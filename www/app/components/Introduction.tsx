@@ -2,7 +2,7 @@
 
 export function Introduction() {
   return (
-    <div className=" p-4 border border-dashed border-primary w-full sm:w-10/12 md:w-8/12 lg:w-6/12 mx-auto text-sm">
+    <div className="bg-ibackground p-4 border border-dashed border-primary  text-sm">
       <div>
         <span>This is a playground for </span>
         <a
