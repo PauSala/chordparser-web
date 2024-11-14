@@ -146,9 +146,11 @@ export default function Parser() {
         )}
       </div>
       {error.errors.length > 0 && (
-        <div className="json-container p-4 mt-[-1em] border border-warning rounded overflow-x-auto">
-          <pre className="spaced-text text-primary">{inputValue}</pre>
-          <pre className="spaced-text mt-[-22px] text-error">{errorMsg}</pre>
+        <div className="flex justify-center json-container p-4 mt-[-1em] border border-warning rounded overflow-x-auto">
+          <div className="">
+            <pre className="spaced-text text-primary">{inputValue}</pre>
+            <pre className="spaced-text mt-[-22px] text-error">{errorMsg}</pre>
+          </div>
         </div>
       )}
     </div>
