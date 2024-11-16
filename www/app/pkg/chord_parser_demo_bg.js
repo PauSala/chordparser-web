@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-array-constructor */
+
 let wasm;
 export function __wbg_set_wasm(val) {
     wasm = val;
