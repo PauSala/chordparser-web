@@ -4,8 +4,18 @@ import React, { useRef, useEffect } from "react";
 import Vex, { Accidental, Barline, BarlineType } from "vexflow";
 import { normalizeNotes } from "../utils/notes";
 import { FaHeartBroken } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
+import { playChord } from "../utils/playChord";
 
-const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
+const Renderer = ({
+  chord,
+  label,
+  voicing,
+}: {
+  chord: string[];
+  label: string;
+  voicing: number[];
+}) => {
   const isVoid = chord.length === 0;
   const vexContainerRef = useRef<HTMLDivElement>(null);
 
@@ -88,6 +98,17 @@ const Renderer = ({ chord, label }: { chord: string[]; label: string }) => {
         </div>
       )}
       <div className="" ref={vexContainerRef}></div>
+      {!isVoid && (
+        <button
+          onClick={() => playChord(voicing)}
+          className="text-secondary border rounded p-2  opacity-80 hover:opacity-100 transition-opacity duration-300"
+        >
+          <div className="flex items-center gap-1">
+            <FaPlay className="ml-[1px] w-5 h-5" />
+            <p>Play</p>
+          </div>
+        </button>
+      )}
     </div>
   );
 };

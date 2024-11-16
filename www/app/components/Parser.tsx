@@ -51,6 +51,7 @@ interface ParsedChord {
 export default function Parser() {
   const [parsedHtml, setParsedHtml] = useState<string | null>(null);
   const [parsed, setParsed] = useState<ParsedChord | null>(null);
+  const [voicing, setVoicing] = useState<number[]>([]);
   const [error, setError] = useState<ParserError>(defaultParserError);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [inputValue, setInputValue] = useState(INITIAL_VALUE);
@@ -66,15 +67,18 @@ export default function Parser() {
     (input: string) => {
       if (isWasmInitialized && WebAssembly.parse) {
         const res = (WebAssembly.parse as typeof ParseType)(input);
+        console.log(res);
         if ("errors" in res) {
           setParsedHtml("");
           setParsed(null);
+          setVoicing([]);
           setError(res);
           setErrorMsg(formatErrors(res, input));
           return;
         }
         setError(defaultParserError);
-        setParsed(res);
+        setParsed(res.chord);
+        setVoicing(res.voicing);
         const html = prettyPrintJson.toHtml(res);
         setParsedHtml(html);
       }
@@ -121,6 +125,7 @@ export default function Parser() {
       <Renderer
         chord={parsed?.note_literals || []}
         label={parsed?.normalized || ""}
+        voicing={voicing}
       ></Renderer>
 
       <div>
@@ -138,7 +143,6 @@ export default function Parser() {
             {isJsonVisible && (
               <pre
                 className="json-container p-4 text-xs border border-primary rounded mt-2 mb-4 overflow-y-auto"
-                // style={{ maxHeight: "calc(100vh - 400px)" }}
                 dangerouslySetInnerHTML={{ __html: parsedHtml }}
               ></pre>
             )}
