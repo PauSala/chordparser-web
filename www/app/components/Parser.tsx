@@ -67,7 +67,6 @@ export default function Parser() {
     (input: string) => {
       if (isWasmInitialized && WebAssembly.parse) {
         const res = (WebAssembly.parse as typeof ParseType)(input);
-        console.log(res);
         if ("errors" in res) {
           setParsedHtml("");
           setParsed(null);
