@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Vex, { Accidental, Barline, BarlineType } from "vexflow";
 import { normalizeNotes } from "../utils/notes";
 import { FaHeartBroken } from "react-icons/fa";
@@ -18,6 +18,8 @@ const Renderer = ({
 }) => {
   const isVoid = chord.length === 0;
   const vexContainerRef = useRef<HTMLDivElement>(null);
+
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     const VF = Vex.Flow;
@@ -83,7 +85,14 @@ const Renderer = ({
       voice.draw(context, stave);
       stave.setContext(context).draw();
     }
-  }); // re-run effect if `notes` prop changes
+  });
+  const onClicked = () => {
+    playChord(voicing);
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1500);
+  };
 
   return (
     <div className="flex flex-col gap-2 align-center">
@@ -102,8 +111,11 @@ const Renderer = ({
       </div>
       {!isVoid && (
         <button
-          onClick={() => playChord(voicing)}
-          className="text-secondary cursor-pointer flex justify-center border rounded p-2  opacity-80 hover:opacity-100 transition-opacity duration-300"
+          disabled={disabled}
+          onClick={onClicked}
+          className={`text-secondary cursor-pointer flex justify-center border rounded p-2 ${
+            disabled ? "opacity-20" : "opacity-80"
+          }  hover:opacity-100 transition-opacity duration-300`}
         >
           <div className="flex  gap-4">
             <FaPlay className="ml-[1px] w-5 h-5" />
