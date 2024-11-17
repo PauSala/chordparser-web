@@ -86,24 +86,26 @@ const Renderer = ({
   }); // re-run effect if `notes` prop changes
 
   return (
-    <div
-      className={` ${
-        isVoid ? "border-warning" : "border-success"
-      } bg-ibackground border border-success rounded min-w-fit sm:min-w-64  p-2 flex flex-col sm:flex-row flex  md:gap-2 lg:gap-5 justify-center items-center`}
-    >
-      {(!isVoid && <p className="text-2xl text-success">{label}</p>) || (
-        <div className="flex items-center gap-2 m-2">
-          <FaHeartBroken className="w-5 h-5" />
-          <p>This does not look like a valid chord.</p>
-        </div>
-      )}
-      <div className="" ref={vexContainerRef}></div>
+    <div className="flex flex-col gap-2 align-center">
+      <div
+        className={` ${
+          isVoid ? "border-warning" : "border-success"
+        } bg-ibackground border border-success rounded min-w-fit sm:min-w-64  p-2 flex flex-col sm:flex-row flex  md:gap-2 lg:gap-5 justify-center items-center`}
+      >
+        {(!isVoid && <p className="text-2xl text-success">{label}</p>) || (
+          <div className="flex items-center gap-2 m-2">
+            <FaHeartBroken className="w-5 h-5" />
+            <p>This does not look like a valid chord.</p>
+          </div>
+        )}
+        <div className="" ref={vexContainerRef}></div>
+      </div>
       {!isVoid && (
         <button
           onClick={() => playChord(voicing)}
-          className="text-secondary border rounded p-2  opacity-80 hover:opacity-100 transition-opacity duration-300"
+          className="text-secondary cursor-pointer flex justify-center border rounded p-2  opacity-80 hover:opacity-100 transition-opacity duration-300"
         >
-          <div className="flex items-center gap-1">
+          <div className="flex  gap-4">
             <FaPlay className="ml-[1px] w-5 h-5" />
             <p>Play</p>
           </div>
