@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Vex, { Accidental, Barline, BarlineType } from "vexflow";
 import { normalizeNotes } from "../utils/notes";
 import { FaHeartBroken } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
-import { playChord } from "../utils/playChord";
+import { useTone } from "../utils/playChord";
 
 const Renderer = ({
   chord,
@@ -18,8 +18,7 @@ const Renderer = ({
 }) => {
   const isVoid = chord.length === 0;
   const vexContainerRef = useRef<HTMLDivElement>(null);
-
-  const [disabled, setDisabled] = useState(false);
+  const { playChord } = useTone();
 
   useEffect(() => {
     const VF = Vex.Flow;
@@ -47,7 +46,6 @@ const Renderer = ({
           clef: "treble",
           keys: notes,
           duration: "w",
-          // align_center: true,
         });
         notes.forEach((n, i) => {
           if (n.indexOf("##") >= 0) {
@@ -88,10 +86,6 @@ const Renderer = ({
   });
   const onClicked = () => {
     playChord(voicing);
-    setDisabled(true);
-    setTimeout(() => {
-      setDisabled(false);
-    }, 1500);
   };
 
   return (
@@ -111,11 +105,8 @@ const Renderer = ({
       </div>
       {!isVoid && (
         <button
-          disabled={disabled}
           onClick={onClicked}
-          className={`text-secondary cursor-pointer flex justify-center border rounded p-2 ${
-            disabled ? "opacity-20" : "opacity-80"
-          }  hover:opacity-100 transition-opacity duration-300`}
+          className={`text-secondary cursor-pointer flex justify-center border rounded p-2 opacity-70  hover:opacity-100 transition-opacity duration-300`}
         >
           <div className="flex  gap-4">
             <FaPlay className="ml-[1px] w-5 h-5" />
