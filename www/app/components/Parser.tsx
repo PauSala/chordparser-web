@@ -7,7 +7,7 @@ import {
 } from "../pkg/chord_parser_demo";
 import { useCallback, useEffect, useState } from "react";
 import { prettyPrintJson } from "pretty-print-json";
-import Renderer from "./Renderer";
+import { Renderer } from "./Renderer";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { formatErrors } from "../utils/formatErrors";
 
