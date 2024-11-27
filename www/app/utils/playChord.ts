@@ -21,32 +21,32 @@ export const useTone = () => {
             },
             envelope: {
                 attack: 0.01,
-                decay: 0.3,
-                sustain: 0.2,
-                release: 1.1
+                decay: 0.4,
+                sustain: 0.3,
+                release: 0.2
             }
         });
 
         const synth2 = new Tone.PolySynth(Tone.Synth, {
             oscillator: {
-                type: 'fattriangle3'
+                type: 'fatsine9'
             },
             envelope: {
                 attack: 0.01,
-                decay: 0.3,
-                sustain: 0.2,
-                release: 1.1
+                decay: 0.4,
+                sustain: 0.3,
+                release: 0.2
             }
         });
-
-        const gain = new Tone.Gain(0.3).toDestination();
         const reverb = new Tone.Reverb({
             decay: 1.9,
             wet: 0.8
         }).toDestination();
 
-        synth.connect(gain).connect(reverb);
-        synth2.connect(gain);
+        const gain = new Tone.Gain(0.5).connect(reverb);
+
+        synth2.connect(gain)
+        synth.connect(gain)
 
         synthRef.current = synth;
         synth2Ref.current = synth2;
