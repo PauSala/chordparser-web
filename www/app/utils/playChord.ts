@@ -1,71 +1,91 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as Tone from 'tone';
 
-const midiToFrequency = (midi: number) => {
-    return Tone.Frequency(midi, "midi").toFrequency();
-};
-
 export const useTone = () => {
-    const synthRef = useRef<Tone.PolySynth | null>(null);
-    const synth2Ref = useRef<Tone.PolySynth | null>(null);
-    const gainRef = useRef<Tone.Gain | null>(null);
-    const reverbRef = useRef<Tone.Reverb | null>(null);
-    const toneStartedRef = useRef(false);
+    const samplerRef = useRef<Tone.Sampler | null>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        const synth = new Tone.PolySynth(Tone.AMSynth, {
-            oscillator: {
-                type: 'fatsine3'
+        const sampler = new Tone.Sampler({
+            urls: {
+                A0: "A0.mp3",
+                C1: "C1.mp3",
+                "D#1": "Ds1.mp3",
+                "F#1": "Fs1.mp3",
+                A1: "A1.mp3",
+                C2: "C2.mp3",
+                "D#2": "Ds2.mp3",
+                "F#2": "Fs2.mp3",
+                A2: "A2.mp3",
+                C3: "C3.mp3",
+                "D#3": "Ds3.mp3",
+                "F#3": "Fs3.mp3",
+                A3: "A3.mp3",
+                C4: "C4.mp3",
+                "D#4": "Ds4.mp3",
+                "F#4": "Fs4.mp3",
+                A4: "A4.mp3",
+                C5: "C5.mp3",
+                "D#5": "Ds5.mp3",
+                "F#5": "Fs5.mp3",
+                A5: "A5.mp3",
+                C6: "C6.mp3",
+                "D#6": "Ds6.mp3",
+                "F#6": "Fs6.mp3",
+                A6: "A6.mp3",
+                C7: "C7.mp3",
+                "D#7": "Ds7.mp3",
+                "F#7": "Fs7.mp3",
+                A7: "A7.mp3",
+                C8: "C8.mp3"
             },
-            envelope: {
-                attack: 0.01,
-                decay: 0.4,
-                sustain: 0.3,
-                release: 0.2
+            release: 1,
+            baseUrl: "https://tonejs.github.io/audio/salamander/",
+            onload: () => {
+                setIsLoaded(true);
             }
-        });
-
-        const synth2 = new Tone.PolySynth(Tone.Synth, {
-            oscillator: {
-                type: 'fatsine9'
-            },
-            envelope: {
-                attack: 0.01,
-                decay: 0.4,
-                sustain: 0.3,
-                release: 0.2
-            }
-        });
-        const reverb = new Tone.Reverb({
-            decay: 1.9,
-            wet: 0.8
         }).toDestination();
 
-        const gain = new Tone.Gain(0.5).connect(reverb);
+        const limiter = new Tone.Limiter(-2).toDestination();
+        sampler.connect(limiter);
 
-        synth2.connect(gain)
-        synth.connect(gain)
+        samplerRef.current = sampler;
 
-        synthRef.current = synth;
-        synth2Ref.current = synth2;
-        gainRef.current = gain;
-        reverbRef.current = reverb;
+        return () => {
+            sampler.dispose();
+        };
     }, []);
 
     const playChord = async (midiCodes: number[]) => {
-        if (!toneStartedRef.current) {
+        if (Tone.getContext().state !== 'running') {
             await Tone.start();
-            toneStartedRef.current = true;
         }
 
-        const now = Tone.now();
-        const frequencies = midiCodes.map(midiToFrequency);
+        if (!isLoaded || !samplerRef.current) return;
 
-        synthRef.current?.triggerAttackRelease(frequencies, 0.7, now);
-        synth2Ref.current?.triggerAttackRelease(frequencies, 0.7, now);
+        const now = Tone.now();
+
+        // Piano logic: the lower the note, the slightly harder the hit (velocity)
+        // Sort to ensure the "strum" is always bottom-to-top
+        const sortedMidi = [...midiCodes].sort((a, b) => a - b);
+
+        sortedMidi.forEach((midi, index) => {
+            const freq = Tone.Frequency(midi, "midi").toFrequency();
+
+            // Realism: High notes are quieter/shorter, low notes are beefier
+            const velocity = midi < 50 ? 0.8 : 0.6;
+            const strum = index * 0.025; // 25ms delay between fingers hitting keys
+
+            samplerRef.current?.triggerAttackRelease(
+                freq,
+                "2n",
+                now + strum,
+                velocity
+            );
+        });
     };
 
-    return { playChord };
+    return { playChord, isLoaded };
 };
