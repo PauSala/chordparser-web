@@ -23,8 +23,12 @@ const righteous = Audiowide({
 });
 
 export const metadata: Metadata = {
-  title: "Chorparser",
-  description: "By Pau Sala",
+  title: {
+    default: "Online chord engine",
+    template: "%s | Chord Engine",
+  },
+  description: "Chord parser engine for developers.",
+  metadataBase: new URL("https://github.com/PauSala/chordparser"),
 };
 
 export default function RootLayout({
