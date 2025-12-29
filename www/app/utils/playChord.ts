@@ -48,7 +48,7 @@ export const useTone = () => {
     }, []);
 
     const playChord = async (midiCodes: number[]) => {
-        if (Tone.context.state !== 'running') {
+        if (Tone.getContext().state !== 'running') {
             await Tone.start();
         }
 
