@@ -70,8 +70,8 @@ export const useTone = () => {
 
         sortedMidi.forEach((midi, index) => {
             const freq = Tone.Frequency(midi, "midi").toFrequency();
-            const velocity = midi < 50 ? 0.8 : 0.6;
-            const strum = index;
+            const velocity = 0.6;
+            const strum = index * 0.001;
 
             samplerRef.current?.triggerAttackRelease(
                 freq,
