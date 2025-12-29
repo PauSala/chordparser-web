@@ -66,17 +66,12 @@ export const useTone = () => {
         if (!isLoaded || !samplerRef.current) return;
 
         const now = Tone.now();
-
-        // Piano logic: the lower the note, the slightly harder the hit (velocity)
-        // Sort to ensure the "strum" is always bottom-to-top
         const sortedMidi = [...midiCodes].sort((a, b) => a - b);
 
         sortedMidi.forEach((midi, index) => {
             const freq = Tone.Frequency(midi, "midi").toFrequency();
-
-            // Realism: High notes are quieter/shorter, low notes are beefier
             const velocity = midi < 50 ? 0.8 : 0.6;
-            const strum = index * 0.025; // 25ms delay between fingers hitting keys
+            const strum = index;
 
             samplerRef.current?.triggerAttackRelease(
                 freq,
