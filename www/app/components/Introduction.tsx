@@ -46,13 +46,13 @@ export function Introduction() {
         </ul>
       </div>
       <div className="mt-4">
-        <span> For a full list of features, see the official </span>
+        <span> For a full list of features, refer to the </span>
         <span>
           <a
             className="text-success opacity-90 hover:opacity-100 transition-opacity duration-300"
             href="https://docs.rs/chordparser/2.0.2/chordparser/"
           >
-            Docs
+            Documentation
           </a>
         </span>
         <span>.</span>
