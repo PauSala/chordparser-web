@@ -8,36 +8,33 @@ export const useTone = () => {
     const filterRef = useRef<Tone.Filter | null>(null);
 
     useEffect(() => {
-        // 1. Create a Low Pass Filter to remove the "noise/hiss"
         const filter = new Tone.Filter({
-            frequency: 1500, // Cuts off the harsh highs
+            frequency: 1500,
             type: "lowpass",
             rolloff: -24
         }).toDestination();
 
-        // 2. Add a softer reverb (lower 'wet' value)
         const reverb = new Tone.Reverb({
             decay: 2.5,
             preDelay: 0.01,
-            wet: 0.3 // Much cleaner
+            wet: 0.3
         }).connect(filter);
 
-        // 3. Single PolySynth with a warmer oscillator
         const synth = new Tone.PolySynth(Tone.Synth, {
             oscillator: {
-                type: "fatsine4", // Balanced thickness
-                spread: 15,      // Slight detune for warmth
+                type: "fatsine4",
+                spread: 15,
             },
             envelope: {
-                attack: 0.05,    // Soften the "click" at the start
+                attack: 0.05,
                 decay: 0.3,
                 sustain: 0.4,
-                release: 1.2,    // Smooth fade out
+                release: 1.2,
             },
-            volume: -12,         // Headroom to prevent clipping chords
+            volume: -12,
         }).connect(reverb);
 
-        // Limit maximum polyphony to prevent audio dropouts
+
         synth.maxPolyphony = 12;
 
         synthRef.current = synth;
