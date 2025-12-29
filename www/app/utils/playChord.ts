@@ -1,86 +1,67 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import * as Tone from 'tone';
 
 export const useTone = () => {
-    const samplerRef = useRef<Tone.Sampler | null>(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const synthRef = useRef<Tone.PolySynth | null>(null);
+    const filterRef = useRef<Tone.Filter | null>(null);
 
     useEffect(() => {
-        const sampler = new Tone.Sampler({
-            urls: {
-                A0: "A0.mp3",
-                C1: "C1.mp3",
-                "D#1": "Ds1.mp3",
-                "F#1": "Fs1.mp3",
-                A1: "A1.mp3",
-                C2: "C2.mp3",
-                "D#2": "Ds2.mp3",
-                "F#2": "Fs2.mp3",
-                A2: "A2.mp3",
-                C3: "C3.mp3",
-                "D#3": "Ds3.mp3",
-                "F#3": "Fs3.mp3",
-                A3: "A3.mp3",
-                C4: "C4.mp3",
-                "D#4": "Ds4.mp3",
-                "F#4": "Fs4.mp3",
-                A4: "A4.mp3",
-                C5: "C5.mp3",
-                "D#5": "Ds5.mp3",
-                "F#5": "Fs5.mp3",
-                A5: "A5.mp3",
-                C6: "C6.mp3",
-                "D#6": "Ds6.mp3",
-                "F#6": "Fs6.mp3",
-                A6: "A6.mp3",
-                C7: "C7.mp3",
-                "D#7": "Ds7.mp3",
-                "F#7": "Fs7.mp3",
-                A7: "A7.mp3",
-                C8: "C8.mp3"
-            },
-            release: 1,
-            baseUrl: "https://tonejs.github.io/audio/salamander/",
-            onload: () => {
-                setIsLoaded(true);
-            }
+        // 1. Create a Low Pass Filter to remove the "noise/hiss"
+        const filter = new Tone.Filter({
+            frequency: 1500, // Cuts off the harsh highs
+            type: "lowpass",
+            rolloff: -24
         }).toDestination();
 
-        const limiter = new Tone.Limiter(-2).toDestination();
-        sampler.connect(limiter);
+        // 2. Add a softer reverb (lower 'wet' value)
+        const reverb = new Tone.Reverb({
+            decay: 2.5,
+            preDelay: 0.01,
+            wet: 0.3 // Much cleaner
+        }).connect(filter);
 
-        samplerRef.current = sampler;
+        // 3. Single PolySynth with a warmer oscillator
+        const synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: {
+                type: "fatsine4", // Balanced thickness
+                spread: 15,      // Slight detune for warmth
+            },
+            envelope: {
+                attack: 0.05,    // Soften the "click" at the start
+                decay: 0.3,
+                sustain: 0.4,
+                release: 1.2,    // Smooth fade out
+            },
+            volume: -12,         // Headroom to prevent clipping chords
+        }).connect(reverb);
+
+        // Limit maximum polyphony to prevent audio dropouts
+        synth.maxPolyphony = 12;
+
+        synthRef.current = synth;
+        filterRef.current = filter;
 
         return () => {
-            sampler.dispose();
+            synth.dispose();
+            reverb.dispose();
+            filter.dispose();
         };
     }, []);
 
     const playChord = async (midiCodes: number[]) => {
-        if (Tone.getContext().state !== 'running') {
+        if (Tone.context.state !== 'running') {
             await Tone.start();
         }
 
-        if (!isLoaded || !samplerRef.current) return;
-
         const now = Tone.now();
-        const sortedMidi = [...midiCodes].sort((a, b) => a - b);
 
-        sortedMidi.forEach((midi, index) => {
+        midiCodes.forEach((midi, index) => {
             const freq = Tone.Frequency(midi, "midi").toFrequency();
-            const velocity = 0.6;
-            const strum = index * 0.001;
-
-            samplerRef.current?.triggerAttackRelease(
-                freq,
-                "2n",
-                now + strum,
-                velocity
-            );
+            synthRef.current?.triggerAttackRelease(freq, "2n", now + (index * 0.015));
         });
     };
 
-    return { playChord, isLoaded };
+    return { playChord };
 };
