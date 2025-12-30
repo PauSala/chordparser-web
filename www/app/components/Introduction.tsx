@@ -50,7 +50,7 @@ export function Introduction() {
         <span>
           <a
             className="text-success opacity-90 hover:opacity-100 transition-opacity duration-300"
-            href="https://docs.rs/chordparser/4.0.0/chordparser/"
+            href="https://docs.rs/chordparser/4.0.1/chordparser/"
           >
             Documentation
           </a>
