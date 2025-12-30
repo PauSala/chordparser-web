@@ -24,7 +24,7 @@ const righteous = Audiowide({
 
 export const metadata: Metadata = {
   title: {
-    default: "Online chord engine",
+    default: "ChordParser Playground",
     template: "%s | Chord Engine",
   },
   description: "Chord parser engine for developers.",
