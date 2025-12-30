@@ -8,6 +8,7 @@ interface Err {
 }
 
 export const formatErrors = (errors: ParserError, input: string) => {
+    console.log(errors);
     const mapped: Err[] = errors.errors.map((e, i) => ({
         msg: stripPosition(e),
         pos: errors.positions[i] < MAX_USIZE ? errors.positions[i] : getPositionForInconsistentExtension(e, input),

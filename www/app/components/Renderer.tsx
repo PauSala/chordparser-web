@@ -31,12 +31,10 @@ export const Renderer = ({
   useEffect(() => {
     const VF = Vex.Flow;
 
-    // Clear the container before re-rendering
     if (vexContainerRef.current) {
       vexContainerRef.current.innerHTML = "";
     }
 
-    // Initialize the renderer
     if (vexContainerRef.current) {
       const renderer = new VF.Renderer(
         vexContainerRef.current,
@@ -48,7 +46,6 @@ export const Renderer = ({
       context.setFillStyle("#c6d0f5");
       context.setStrokeStyle("#c6d0f5");
 
-      // Map the notes to VexFlow StaveNote objects
       const staveNotes = [chord].map(normalizeNotes).map((notes: string[]) => {
         const chord = new VF.StaveNote({
           clef: "treble",
@@ -74,13 +71,10 @@ export const Renderer = ({
         beat_value: 4,
       });
 
-      // Create a stave at position x=10, y=40, with a width of 400 pixels
       const stave = new VF.Stave(10, 0, 210, { left_bar: true });
 
-      // Add a double barline at the end of the stave
       if (chord.length > 0) {
         voice.addTickables(staveNotes);
-        // Format and justify the notes to the stave width, then draw
         new VF.Formatter().joinVoices([voice]).formatToStave([voice], stave);
       }
 
