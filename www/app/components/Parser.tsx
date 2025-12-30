@@ -44,7 +44,7 @@ const defaultParserError: ParserError = {
 };
 
 interface ParsedChord {
-  note_literals: string[];
+  notes: { literal: string; modifier: string }[];
   normalized: string;
 }
 
@@ -122,7 +122,7 @@ export default function Parser() {
       </div>
 
       <Renderer
-        chord={parsed?.note_literals || []}
+        chord={parsed?.notes || []}
         label={parsed?.normalized || ""}
         voicing={voicing}
       ></Renderer>

@@ -20,7 +20,7 @@ export const Renderer = ({
   label,
   voicing,
 }: {
-  chord: string[];
+  chord: { literal: string; modifier: string }[];
   label: string;
   voicing: number[];
 }) => {
