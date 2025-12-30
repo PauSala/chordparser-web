@@ -22,8 +22,8 @@ export const useTone = () => {
 
         const synth = new Tone.PolySynth(Tone.Synth, {
             oscillator: {
-                type: "fatsine4",
-                spread: 15,
+                type: "amsine5",
+                // spread: 15,
             },
             envelope: {
                 attack: 0.05,
